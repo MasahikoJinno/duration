@@ -9,12 +9,12 @@ fn main() {
 }
 
 fn convert_datetime_from_string(s: &str) -> DateTime<Local>{
-    let n: DateTime<Local> = Local::now();
+    let n: DateTime<Local> = Local.ymd(2000, 1, 1).and_hms(0, 0, 0);
     let mut iter = s.splitn(2, ":");
     let temp_hour: u32 = iter.next().unwrap().parse().unwrap();
     let minutes: u32 = iter.next().unwrap().parse().unwrap();
-    let i = if temp_hour > 24 { 1 } else { 0 };
-    let hour: u32 = if temp_hour > 24 { temp_hour - 24 } else { temp_hour };
+    let i = if temp_hour >= 24 { 1 } else { 0 };
+    let hour: u32 = if temp_hour >= 24 { temp_hour - 24 } else { temp_hour };
     let dt = Local
         .ymd(n.year(), n.month(), n.day() + i)
         .and_hms(hour, minutes, 0);
